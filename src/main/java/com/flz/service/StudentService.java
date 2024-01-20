@@ -44,13 +44,18 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Map<String,Boolean> deleteOneStudent(Long id) throws ResourceNotFoundException{
-        Student student=studentRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Student not found ID: "+ id));
-        studentRepository.deleteById(id);
-        Map<String,Boolean> response=new HashMap<>();
-        response.put("Deleted ID: "+ id ,Boolean.TRUE);
 
-        return response;
+    public Map<String, Boolean> deleteOneStudent (Long id) throws ResourceNotFoundException {
+
+        Student student = studentRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Student not found ID: " + id));
+
+        studentRepository.deleteById(id);
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("Delete", Boolean.TRUE);
+
+        return  response;
     }
 
     public ResponseEntity<Student> updateOneStudent(Student studentInfo) throws ResourceNotFoundException{
@@ -59,5 +64,17 @@ public class StudentService {
         return ResponseEntity.ok(studentRepository.save(student));
 
     }
+    /*
+    public ResponseEntity<Student> updateOneStudent2 (Long id, Student studentInfo) throws ResourceNotFoundException {
+
+        studentRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Student not found ID: " + id));
+
+        studentInfo.setId(id);
+        return ResponseEntity.ok(studentRepository.save(studentInfo));
+    }
+    */
+
+
 
 }
